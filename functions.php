@@ -10,7 +10,7 @@ function enregistrerFichierEnvoye(array $infoFichier): string
 {
     $timestamp = strval(time());
     $extension = pathinfo(basename($infoFichier["name"]), PATHINFO_EXTENSION);
-    $nomDuFichier = 'produit_' . $timestamp . '.' . $extension;
+    $nomDuFichier = 'contact_' . $timestamp . '.' . $extension;
     $dossierStockage = __DIR__ . '/uploads/';
 
     if (file_exists($dossierStockage) === false)
