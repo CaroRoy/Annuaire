@@ -67,57 +67,48 @@
             <?php
                 }
             ?> 
-            <table class="table table-striped w-75 mx-auto">
-                <tr>
-                    <th>Nom</th>
-                    <th>Prenom</th>
-                    <th>Photo</th>
-                    
-                    <?php 
-                        if(isset($_SESSION['role'])) 
-                        {                                                      
-                    ?>
-                        <th>Numéro de téléphone</th>
-                        <th>Adresse e-mail</th>
-                        <th>Actions</th>
-                    <?php
-                        }
-                    ?> 
-                </tr>
-                
+                            
+            <div class="d-flex flex-wrap justify-content-between">
                 <?php
                     foreach ($tableau as $element) {
                 ?>
 
-                    <tr>
-                        <td class="w-25"><?php echo $element->nom ?></td>
-                        <td><?php echo $element->prenom ?></td>
+                    <div class="card mb-5 bg-light" style="width: 18rem;">
                         <?php 
                             if(isset($_SESSION['role'])) 
                             {                                                      
-                        ?>
-                                <td><img src="<?php echo $element->image ?>" alt="photo" width="70px"></td>
-                                <td><a href="tel:<?php echo $element->num_tel ?>"><?php echo $element->num_tel ?></a></td>
-                                <td><a href="mailto:<?php echo $element->email ?>"><?php echo $element->email ?></a></td>
-                                <td>
-                                    <a href="/CoursPHP/php_web/annuaire/router.php/modifier-contact?id=<?php echo $element->id ?>" class="btn btn-warning">Modifier</a>
-                                    <a href="/CoursPHP/php_web/annuaire//router.php/supprimer-contact?id=<?php echo $element->id ?>" class="btn btn-dark">Supprimer</a>
-                                </td>
+                        ?>                        
+                            <img src="<?php echo $element->image ?>" class="card-img-top" alt="photo">
                         <?php
                             } else 
                             {
                         ?>
-                                <td><img src="https://randomuser.me/api/portraits/lego/1.jpg" alt="photo" width="70px"></td>
+                            <img src="https://randomuser.me/api/portraits/lego/1.jpg" class="card-img-top" alt="photo">
                         <?php
                             }                         
                         ?> 
-                    </tr>
+                        <div class="card-body">
+                            <h5 class="card-title"><?php echo $element->nom . ' '. $element->prenom  ?></h5>
+                            <?php 
+                                if(isset($_SESSION['role'])) 
+                                {                                                      
+                            ?>
+                            <div><a href="tel:<?php echo $element->num_tel ?>"><?php echo $element->num_tel ?></a></div>
+                            <div class="mb-4"><a href="mailto:<?php echo $element->email ?>"><?php echo $element->email ?></a></div>
+                            <a href="/CoursPHP/php_web/annuaire/router.php/modifier-contact?id=<?php echo $element->id ?>" class="btn btn-warning">Modifier</a>
+                            <a href="/CoursPHP/php_web/annuaire//router.php/supprimer-contact?id=<?php echo $element->id ?>" class="btn btn-dark">Supprimer</a>
+                            <?php
+                                }                         
+                            ?>
+                        </div>
+                    </div>                    
 
                 <?php
                     }
                 ?>
+            </div>
 
-            </table>
+            
         </main>
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
         </script>
