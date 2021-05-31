@@ -69,10 +69,10 @@
                     }
                 ?>
 
-                <form class="w-50 d-flex flex-column my-5" action="http://localhost/CoursPHP/php_web/annuaire/router.php/ajouter-contact" method="post">
+                <form class="w-50 d-flex flex-column my-5" action="http://localhost/CoursPHP/php_web/annuaire/router.php/ajouter-contact" method="post" enctype="multipart/form-data" >
                     <input class="mb-3" type="text" name="nom" placeholder="nom">
                     <input class="mb-3"  type="text" name="prenom" placeholder="prenom">
-                    <input class="mb-3"  type="text" name="image" placeholder="url de l'image">
+                    <input type="file" name="product-photo-file" class="form-control-file">
                     <input class="mb-3" type="text" name="tel" placeholder="n° de téléphone">
                     <input class="mb-3"  type="text" name="email" placeholder="e-mail">
                     <div class="d-flex justify-content-center">

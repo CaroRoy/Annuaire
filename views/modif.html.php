@@ -69,14 +69,15 @@
                     }
                 ?>
 
-                <form class="w-50 d-flex flex-column mb-5" action="http://localhost/CoursPHP/php_web/annuaire/router.php/modifier-contact?id=<?php echo $contact->id ?>" method="post">
+                <form class="w-50 d-flex flex-column mb-5" action="http://localhost/CoursPHP/php_web/annuaire/router.php/modifier-contact?id=<?php echo $contact->id ?>" method="post" enctype="multipart/form-data" >
                     <label class="fw-bold">Nom</label>
                     <input class="mb-3" type="text" name="nom" value="<?php echo $contact->nom; ?>">
                     <label class="fw-bold">Prénom</label>
                     <input class="mb-3"  type="text" name="prenom" value="<?php echo $contact->prenom; ?>">
                     <p><strong>Photo :</strong></p>
-                    <img src="<?php echo $contact->image ?>" alt="photo" width="70px"><br>
-                    <label>Modifier la photo :</label>
+                    <img src="http://localhost/CoursPHP/php_web/annuaire/<?php echo $contact->image; ?>" alt="image" width="200px">
+                    <label>Nouvelle photo</label></br>
+                    <input type="file" name="product-photo-file" class="form-control-file">
                     <input class="mb-3"  type="text" name="image" value="<?php echo $contact->image; ?>">
                     <label class="fw-bold">Numéro de téléphone</label>
                     <input class="mb-3" type="text" name="tel" value="<?php echo $contact->num_tel; ?>">

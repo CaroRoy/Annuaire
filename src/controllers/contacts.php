@@ -19,10 +19,10 @@ function create()
         $messageErreur = null;
         if (isset($_POST['enregistrer']))
         {
-            $messageErreur = verifierPayload($_POST);
+            $messageErreur = verifierPayload($_POST, $_FILES);
             if ($messageErreur === null)
             {
-                $contact = convertirPayloadEnObjet($_POST);
+                $contact = convertirPayloadEnObjet($_POST, $_FILES);
                 $contact->save();
                 redirect('/contacts');
             }
@@ -51,14 +51,18 @@ function modify()
 
         if (isset($_POST['enregistrer']))
         {
-            $messageErreur = verifierPayload($_POST);
+            $messageErreur = verifierPayload($_POST, $_FILES);
             if ($messageErreur === null)
             {        
                 $contact->nom = $_POST['nom'];
                 $contact->prenom = $_POST['prenom'];
                 $contact->num_tel = $_POST['tel'];
                 $contact->email = $_POST['email'];
-                $contact->image = $_POST['image'];
+
+                if($_FILES['product-photo-file']['name'] !== '') {
+                    $fichier = enregistrerFichierEnvoye($_FILES["product-photo-file"]);
+                    $contact->image = $fichier;
+                }
 
                 $contact->save();
                 
@@ -105,9 +109,17 @@ function verifierPayload(array $data)
         return "Vous devez spécifier un prénom";
     }
 
-    if (!isset($data['image']) || $data['image'] === '')
+    if (isset($file['product-photo-file']) && $file['product-photo-file']['name'] !== '')
     {
-        return "Vous devez insérer l'url de la photo";
+        if (!in_array($file['product-photo-file']['type'], ['image/webp', 'image/png', 'image/jpg', 'image/jpeg']))
+        {
+            return "Le type de fichier " . $file['product-photo-file']['type'] . " n'est pris en charge";
+        }
+
+        if ($file['product-photo-file']['size'] > 10000000)
+        {
+            return "Le fichier est trop gros: il fait " . $file['product-photo-file']['size']. ' octets';
+        }
     }
 
     if (!isset($data['tel']) || $data['tel'] === '')
@@ -123,7 +135,7 @@ function verifierPayload(array $data)
     return null;
 }
 
-function convertirPayloadEnObjet(array $data)
+function convertirPayloadEnObjet(array $data, array $file)
 {
     $contact = new Contacts();
 
@@ -131,7 +143,9 @@ function convertirPayloadEnObjet(array $data)
     $contact->prenom = $data['prenom'];
     $contact->num_tel = $data['tel'];
     $contact->email = $data['email'];
-    $contact->image = $data['image'];
+
+    $fichier = enregistrerFichierEnvoye($file["product-photo-file"]);
+    $contact->image = $fichier;
 
     return $contact;
 }

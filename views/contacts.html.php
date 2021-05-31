@@ -68,17 +68,17 @@
                 }
             ?> 
                             
-            <div class="d-flex flex-wrap justify-content-between">
+            <div class="d-flex flex-wrap">
                 <?php
                     foreach ($tableau as $element) {
                 ?>
 
-                    <div class="card mb-5 bg-light" style="width: 18rem;">
+                    <div class="card mb-5 mx-4 bg-light" style="width: 18rem;">
                         <?php 
                             if(isset($_SESSION['role'])) 
                             {                                                      
                         ?>                        
-                            <img src="<?php echo $element->image ?>" class="card-img-top" alt="photo">
+                            <img src="http://localhost/CoursPHP/php_web/annuaire<?php echo $element->image; ?>" class="card-img-top" alt="photo">
                         <?php
                             } else 
                             {
